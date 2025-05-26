@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.31.7)
+project(OpenCV-VLPR-System VERSION 1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Debug")
+endif()
+
+set(OpenCV_DIR "D:/Lib/opencv/opencv-4.11.0-mingw64/x64/mingw/lib")
+find_package(OpenCV REQUIRED)
+
+add_executable(main
+        ../OpenCV-license-plate-recognition-main/src/main.cpp
+        ../OpenCV-license-plate-recognition-main/src/PlateLocator.cpp
+        ../OpenCV-license-plate-recognition-main/src/dataset_utils.cpp
+        ../OpenCV-license-plate-recognition-main/src/image_utils.cpp
+        ../OpenCV-license-plate-recognition-main/src/recognize_utils.cpp
+        ../OpenCV-license-plate-recognition-main/src/model.cpp
+)
+
+target_include_directories(main PUBLIC
+    ${OpenCV_INCLUDE_DIRS}
+    ${CMAKE_SOURCE_DIR}/include
+)
+
+target_link_libraries(main ${OpenCV_LIBS})
